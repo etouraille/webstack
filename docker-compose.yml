@@ -3,25 +3,21 @@ web:
     ports:
         - "80:80"
     volumes:
-        - ./../.:/src
         - ./nginx/site.silex.conf:/etc/nginx/conf.d/site.conf
     links:
         - php
 php:
     build: php
     volumes:
-        - ./../.:/src
         - ./php/conf:/usr/local/etc/php/conf.d
-        - /var/log/php/error:/var/log/php/error
-        - /var/log/RunProgrammation:/var/log/RunProgrammation
+        - /var/log/php7:/var/log/php7
     links:
         - db
-        - rabbit
+        
 
 node:
     volumes:
-       - ./../.:/src
-       - /var/log/RunProgrammation:/var/log/RunProgrammation
+       - ./:/src
     tty: true
     build: node
     ports:

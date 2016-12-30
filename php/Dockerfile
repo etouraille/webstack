@@ -1,46 +1,99 @@
 FROM phusion/baseimage:latest
 
-# Install bcmath RUN docker-php-ext-install bcmath
-
-RUN apt-get update
-
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -y  --no-install-recommends \
+      
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      autoconf \
+      build-essential \
+      bison \
+      bzip2 \
+      curl \
+      re2c \
+      lbzip2 \
+      libcurl4-gnutls-dev \
+      libfreetype6-dev \
+      libldap-2.4-2 \
+      libldb-dev \
+      libldap2-dev \
+      libpng-dev \
+      libssl-dev \
+      libsslcommon2-dev \
+      libtool-bin \
+      libxml2-dev \
+      libxml2-utils \
+      libzip-dev \
+      postfix \
+      re2c \
+      gcc \
+      git \
       vim \
       wget \
       zlib1g-dev \
-      libxml2-utils \
-      libxml2-dev \
-      postfix \
-    && rm -rf /var/lib/apt/lists/*
+      libgmp-dev \
+      libgmp3-dev \
+      libbz2-dev \
+      libjpeg-dev \
+      libxpm-dev \
+      libmcrypt-dev \
+      libpspell-dev \
+      librecode-dev  
 
-RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
+RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
-RUN wget -O- https://www.dotdeb.org/dotdeb.gpg | apt-key add -
+RUN ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
+      && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
 
-RUN apt-get update
+RUN git clone https://github.com/php/php-src
 
-RUN apt-get install -y --no-install-recommends \
-      php7.0 \
-      php7.0-fpm \
-      php7.0-mysql \
-      php7.0-bcmath \
-      php7.0-curl \
-      php7.0-json \
-      php7.0-gd \
-      php7.0-mcrypt \
-      php7.0-msgpack \
-      php7.0-memcached \
-      php7.0-intl \
-      php7.0-pdo_mysql \
-      php7.0-gmp \
-      php7.0-geoip \
-      php7.0-mbstring \
-      php7.0-xml \
-      php7.0-xmlrpc \
-      php7.0-zip \
-      && rm -rf /var/lib/apt/lists/*
+RUN cd php-src && git checkout PHP-7.1.0 && ./buildconf --force && ./configure --prefix=/usr/local/php7 \
+      --with-config-file-path=/etc/php7/apache2 \
+      --with-config-file-scan-dir=/etc/php7/apache2/conf.d \
+      --enable-bcmath \
+      --enable-calendar \
+      --enable-exif \
+      --enable-ftp \
+      --enable-intl \
+      --enable-mbstring \
+      --enable-pcntl \
+      --enable-sysvmsg \
+      --enable-sysvsem \
+      --enable-sysvshm \
+      --enable-fpm \
+      --enable-wddx \
+      --enable-zip \
+      --with-fpm \
+      --with-curl \
+      --with-mcrypt \
+      --with-iconv \
+      --with-gmp=/usr/include/x86_64-linux-gnu \
+      --with-pspell \
+      --with-gd \
+      --with-jpeg-dir=/usr \
+      --with-png-dir=/usr \
+      --with-zlib-dir=/usr \
+      --with-xpm-dir=/usr \
+      --with-freetype-dir=/usr \
+      --with-fpm-user=www-data \
+      --with-fpm-group=www-data \
+      --with-t1lib=/usr \
+      --enable-gd-native-ttf \
+      --enable-gd-jis-conv \
+      --with-openssl \
+      --with-pdo-mysql \
+      --with-gettext=/usr \
+      --with-zlib=/usr \
+      --with-bz2 \
+      --with-recode=/usr \
+      --with-ldap \
+      --with-xdebug \
+      && make clean \
+      && make -j `cat /proc/cpuinfo | grep processor | wc -l` \
+      && make install 
+
+RUN ln -s /usr/local/php7/bin/php /usr/bin/php
+
+RUN ln -s /usr/local/php7/sbin/php-fpm /usr/sbin/php-fpm
 
 RUN mkdir -p /etc/sv/php
 
