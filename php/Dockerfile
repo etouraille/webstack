@@ -95,6 +95,12 @@ RUN ln -s /usr/local/php7/bin/php /usr/bin/php
 
 RUN ln -s /usr/local/php7/sbin/php-fpm /usr/sbin/php-fpm
 
+RUN mkdir -p /var/log/php-fpm
+
+RUN chmod -R 777 /var/log/php-fpm
+
+RUN cp /usr/local/php7/etc/php-fpm.conf.default /usr/local/php7/etc/php-fpm.conf
+
 RUN mkdir -p /etc/sv/php
 
 ADD run /etc/sv/php/run

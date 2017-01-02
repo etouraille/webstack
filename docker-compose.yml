@@ -9,10 +9,12 @@ web:
 php:
     build: php
     volumes:
-        - ./php/conf:/usr/local/etc/php/conf.d
         - /var/log/php7:/var/log/php7
+        - ./php/fpm-conf/:/usr/local/php7/etc/php-fpm.d/
     links:
         - db
+    environment:
+      - TERM=dumb
         
 
 node:
