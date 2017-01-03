@@ -16,6 +16,3 @@ RUN rm script.sh
 RUN apt-get install --yes nodejs
 
 WORKDIR /src
-
-RUN npm install -g bower
-

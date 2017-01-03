@@ -24,11 +24,11 @@ php:
 
 node:
     volumes:
-       - ./:/src
+       - ./../:/src
     tty: true
     build: node
     ports:
-      - "8000:8000"
+      - "8080:8080"
 
 
 db:
@@ -38,7 +38,7 @@ db:
     - "3306:3306"
   environment:
     - MYSQL_ROOT_PASSWORD=b1otope
-    - MYSQL_DATABASE=ambrieu
+    - MYSQL_DATABASE=chatakee
     - MYSQL_USER=ed
     - MYSQL_PASSWORD=b1otope
     - TERM=dumb
