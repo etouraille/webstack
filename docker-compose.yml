@@ -3,19 +3,24 @@ web:
     ports:
         - "80:80"
     volumes:
-        - ./nginx/site.silex.conf:/etc/nginx/conf.d/site.conf
+        - ./nginx/chatakee.conf:/etc/nginx/conf.d/site.conf
+        - ./../src:/src
     links:
         - php
 php:
     build: php
     volumes:
+        - ./../src:/src
+        - ./php/conf:/etc/php7/apache2/conf.d
         - /var/log/php7:/var/log/php7
         - ./php/fpm-conf/:/usr/local/php7/etc/php-fpm.d/
     links:
         - db
     environment:
       - TERM=dumb
-        
+    ports:
+      - "9000:9000"
+
 
 node:
     volumes:

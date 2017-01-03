@@ -1,3 +1,5 @@
 #!/bin/bash
 
-exec chpst -u www-data php-fpm -F
+
+#exec chpst -u www-data php-fpm -F
+exec /sbin/setuser root /usr/sbin/php-fpm -F --fpm-config /usr/local/php7/etc/php-fpm.conf -c /etc/php7/apache2/conf.d/ >> /var/log/php7/log.ini 2>&1

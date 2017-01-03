@@ -46,7 +46,7 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
 
 RUN git clone https://github.com/php/php-src
 
-RUN cd php-src && git checkout PHP-7.1.0 && ./buildconf --force && ./configure --prefix=/usr/local/php7 \
+RUN cd php-src && git checkout PHP-7.0.14 && ./buildconf --force && ./configure --prefix=/usr/local/php7 \
       --with-config-file-path=/etc/php7/apache2 \
       --with-config-file-scan-dir=/etc/php7/apache2/conf.d \
       --enable-bcmath \
@@ -96,6 +96,8 @@ RUN ln -s /usr/local/php7/bin/php /usr/bin/php
 RUN ln -s /usr/local/php7/sbin/php-fpm /usr/sbin/php-fpm
 
 RUN mkdir -p /var/log/php-fpm
+
+RUN mkdir -p /etc/php7/apache2/conf.d
 
 RUN chmod -R 777 /var/log/php-fpm
 
