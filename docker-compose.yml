@@ -3,14 +3,16 @@ web:
     ports:
         - "80:80"
     volumes:
-        - ./nginx/chatakee.conf:/etc/nginx/conf.d/site.conf
-        - ./../src:/src
+        - ./nginx/conf/:/etc/nginx/conf.d/
+        - ./../../:/src
     links:
         - php
 php:
     build: php
     volumes:
-        - ./../src:/src
+        - ./../src/app/backend:/src
+        - ./../script:/script
+        - ./:/docker
         - ./php/conf:/etc/php7/apache2/conf.d
         - /var/log/php7:/var/log/php7
         - ./php/fpm-conf/:/usr/local/php7/etc/php-fpm.d/

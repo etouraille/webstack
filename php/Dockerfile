@@ -125,4 +125,10 @@ RUN mv composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
 ADD scriptmail.sh /root/scriptmail.sh
 
+WORKDIR /src/
+
+RUN mkdir /script
+
+RUN mkdir /docker
+
 CMD ["/sbin/my_init"]
