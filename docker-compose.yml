@@ -4,7 +4,7 @@ web:
         - "80:80"
     volumes:
         - ./nginx/conf/:/etc/nginx/conf.d/
-        - ./../../:/src
+        - ./../:/src
     links:
         - php
 php:
