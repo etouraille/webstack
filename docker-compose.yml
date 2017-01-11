@@ -9,7 +9,7 @@ web:
     links:
         - php
 php:
-    image: php:7.1-fpm
+    build: php
     environment:
       - TERM=dumb
     volumes:
