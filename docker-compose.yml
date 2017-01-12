@@ -9,7 +9,7 @@ web:
     links:
         - php
     ports:
-        - "87:80"
+        - "81:80"
 php:
     build: php
     environment:
