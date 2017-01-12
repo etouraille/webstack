@@ -10,7 +10,7 @@ web:
 php:
     build: php
     volumes:
-        - ./../src/app/backend:/src
+        - ./../:/src
         - ./../script:/script
         - ./:/docker
         - ./php/conf:/etc/php7/apache2/conf.d
