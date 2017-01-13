@@ -8,6 +8,8 @@ RUN mkdir /var/www/.ssh
 
 RUN ssh-keygen -t rsa -f /var/www/.ssh/id_rsa -q -P ""
 
+RUN chown -R www-data:www-data /var/www
+
 RUN usermod --password $(echo b1otope | openssl passwd -1 -stdin) www-data
 
 RUN usermod -s /bin/bash www-data
