@@ -6,7 +6,6 @@ web:
         - ./nginx/conf.conf:/etc/nginx/conf.d/site.conf
         - ./nginx/local.conf:/etc/nginx/conf.d/local.conf
         - ./../:/src
-        - ./../key:/root/.ssh
     links:
         - php
     ports:
