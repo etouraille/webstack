@@ -10,7 +10,7 @@ RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""
 
 RUN usermod --password $(echo b1otope | openssl passwd -1 -stdin) www-data
 
-RUN chpass -s /bin/bash www-data
+RUN usermod -s /bin/bash www-data
 
 RUN echo "AllowUsers www-data" >> /etc/ssh/sshd_config
 
