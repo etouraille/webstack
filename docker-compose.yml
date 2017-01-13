@@ -16,5 +16,3 @@ php:
       - TERM=dumb
     volumes:
       - ./../:/src
-    ports:
-       - "22:22"
