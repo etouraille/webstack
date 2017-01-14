@@ -3,14 +3,14 @@ web:
     ports:
         - "80:80"
     volumes:
-        - ./nginx/site.silex.conf:/etc/nginx/conf.d/site.conf
+        - ./nginx/conf:/etc/nginx/conf.d
+        - ./../serveur_api:/src
     links:
         - php
 php:
     build: php
     volumes:
-        - /var/log/php7:/var/log/php7
-        - ./php/fpm-conf/:/usr/local/php7/etc/php-fpm.d/
+        - ./../serveur_api:/src
     links:
         - db
     environment:
@@ -19,12 +19,12 @@ php:
 
 node:
     volumes:
-       - ./:/src
+       - ./../:/src
     tty: true
     build: node
     ports:
       - "8000:8000"
-
+      - "8003:8003"
 
 db:
   image: mariadb
@@ -33,8 +33,8 @@ db:
     - "3306:3306"
   environment:
     - MYSQL_ROOT_PASSWORD=b1otope
-    - MYSQL_DATABASE=ambrieu
-    - MYSQL_USER=ed
+    - MYSQL_DATABASE=stpc_emlyon
+    - MYSQL_USER=ed 
     - MYSQL_PASSWORD=b1otope
     - TERM=dumb
   volumes:

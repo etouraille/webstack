@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec chpst -u www-data php-fpm -F

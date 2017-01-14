@@ -1,0 +1,27 @@
+#!/usr/bin/php
+<?php
+$env = isset($argv[1])?$argv[1]:null;
+
+if(false === array_search($env, ['dev','production', 'staging'])) {
+	exit(0);
+}
+
+
+$conf_nginx = [
+	'back',
+	'front',
+	'backend'
+];
+
+exec('rm /docker/nginx/conf/*.conf');
+
+foreach( $conf_nginx as $index => $conf ) {
+	
+	$fileToCopy = sprintf('/docker/nginx/all_conf/%s.%s.conf', $conf, $env);
+	$destinationFile = sprintf('/docker/nginx/conf/%s.conf', $conf );
+
+	if( file_exists( $fileToCopy ) ) {
+		copy($fileToCopy,$destinationFile);
+	}
+}
+exit(1);
