@@ -15,4 +15,6 @@ RUN rm script.sh
 
 RUN apt-get install --yes nodejs
 
+RUN npm install -g angular-cli@latest
+
 WORKDIR /src

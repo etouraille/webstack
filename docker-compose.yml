@@ -31,7 +31,7 @@ node:
     build: node
     ports:
       - "8080:8080"
-
+      - "4200:4200"
 
 db:
   image: mariadb
