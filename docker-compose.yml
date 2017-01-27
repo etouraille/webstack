@@ -2,6 +2,7 @@ web:
     build: nginx
     ports:
         - "80:80"
+        - "81:81"
     volumes:
         - ./nginx/conf/:/etc/nginx/conf.d/
         - ./../:/src
