@@ -27,6 +27,8 @@ RUN unzip compiler.zip
 
 RUN rm compiler.zip
 
+RUN mkdir -p /src
+
 RUN mv closure-compiler-v* /src/compiler.jar
 
 WORKDIR /src
