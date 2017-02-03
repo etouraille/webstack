@@ -103,6 +103,9 @@ RUN chmod -R 777 /var/log/php-fpm
 
 RUN cp /usr/local/php7/etc/php-fpm.conf.default /usr/local/php7/etc/php-fpm.conf
 
+
+#php service
+
 RUN mkdir -p /etc/sv/php
 
 ADD run /etc/sv/php/run
@@ -117,13 +120,18 @@ ADD log /etc/sv/php/log/run
 
 RUN chmod +x /etc/sv/php/log/run
 
+#wrights.
+
+
 RUN usermod -u 500 www-data
 
 RUN curl -sS https://getcomposer.org/installer | php
 
 RUN mv composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
-ADD scriptmail.sh /root/scriptmail.sh
+ADD hostmail.sh /root/hostmail.sh
+
+RUN /bin/bash -c "/root/hostmail.sh"
 
 WORKDIR /src/
 
