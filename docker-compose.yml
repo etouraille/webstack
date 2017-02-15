@@ -46,7 +46,8 @@ db:
     - MYSQL_PASSWORD=b1otope
     - TERM=dumb
   volumes:
-    - ./db:/etc/mysql/conf.d
+    - ./db/conf:/etc/mysql/conf.d
+    - ./db/kill.sh:/bin/kill.sh
     - ./:/opt
   tty: true
 
